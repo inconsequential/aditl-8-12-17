@@ -1,0 +1,194 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-size: 26px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .background {
+    background-color: red;
+    background: url(images/home-alone-528e533adeb3b.jpg) no-repeat center center fixed;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    }
+
+    .game{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    }
+
+    .correct {
+      background-color: green;
+    }
+
+    .wrong {
+      background-color: red;
+    }
+    .score {
+      background-color: #333;
+      padding: 1em;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .timeRemaining {
+      background-color: #333;
+      padding: 1em;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .quiz {
+      background-color: #333;
+      padding: 1em;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    button {
+      background-color: #444;
+      padding: 1em 2em;
+      color: white;
+      font-size: 26px;
+    }
+
+    button:hover {
+      background-color: #555;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="background">
+
+    </div>
+    <div class="game"> 
+      <div class="score">Score: <span id="scoreValue">0</span></div>
+
+          <!-- <div class="timeRemaining">Time</div> -->
+
+          <div class="quiz">
+            <p>Which movie is this?</p>
+            <div class="options">
+              <button id="movieA">A</button>
+              <button id="movieB">B</button>
+              <button id="movieC">C</button>
+              <button id="movieD">D</button>
+            </div>
+          </div>
+    </div>
+   
+
+    <script>
+      function startGame(dataset) {
+        function correctPick(el) {
+          var score = document.getElementById("scoreValue");
+          el.classList.add("correct");
+          score.innerHTML = parseInt(score.innerHTML) + 1;
+        }
+
+        function wrongPick(el) {
+          var score = document.getElementById("scoreValue");
+          el.classList.add("wrong");
+          score.innerHTML = parseInt(score.innerHTML) - 10;
+        }
+
+        function pick(event) {
+          var el = event.target;
+          if (el.id.substr(5) == "A") {
+            correctPick(el);
+          } else {
+            wrongPick(el);
+          }
+          console.log(event);
+          setTimeout(chooseRandomMovie, 2000);
+        }
+
+        function chooseRandomMovie() {
+          chosenIdx = Math.floor(Math.random() * dataset.length);
+          var thing = dataset[chosenIdx]
+          document.getElementsByClassName("background")[0].style.backgroundImage = "url(" + thing['image'] + ")";
+          var buttons = document.getElementsByTagName("button");
+          buttons[0].innerHTML = thing['name']
+          var done = 0;
+          for (i = 0; i < dataset.length; i++) {
+            if (i == chosenIdx) {
+              continue;
+            }
+            buttons[done + 1].innerHTML = dataset[i]['name'];
+            done += 1;
+            if (done >= 3) {
+              break;
+            }
+          }
+          console.log (dataset)
+          var buttons = document.getElementsByTagName("button")
+          for (i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove("correct");
+            buttons[i].classList.remove("wrong");
+          }          
+          // TODO
+        }
+        var buttons = document.getElementsByTagName("button")
+        for (i = 0; i < buttons.length; i++) {
+          buttons[i].addEventListener("click", pick);
+        }
+
+        chooseRandomMovie();
+      }
+
+      fetch("dataset.json").then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          // Examine the text in the response
+          response.json().then(startGame);
+        }
+      ).catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
+
+      // var KEYARGS = "api_key=dd167e0f489838e9663556a5bdfa40e5&client_key=65168b170126aa12e58785f565d66c1c"
+      // function getPostersForMovieID(id, onSuccessCallback) {
+      //   var id = parseInt(id.substr(2)); // drop off the 'tt' of the imdbid
+      //   var url = "http://webservice.fanart.tv/v3/movies/" + id.toString() + "?" + KEYARGS;
+      //   console.debug("Calling url", url);
+      //   fetch(url).then(
+      //     function(response) {
+      //       if (response.status !== 200) {
+      //         console.log('Looks like there was a problem. Status Code: ' +
+      //           response.status);
+      //         return;
+      //       }
+
+      //       // Examine the text in the response
+      //       response.json().then(onSuccessCallback);
+      //     }
+      //   )
+      //   .catch(function(err) {
+      //     console.log('Fetch Error :-S', err);
+      //   });
+      // }
+
+      // getPostersForMovieID("tt0308644", function(data) {
+      //   console.log(data);
+      // })
+    </script>
+  </body>
+
+</html>

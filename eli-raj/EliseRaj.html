@@ -1,0 +1,135 @@
+<html>
+<head>
+  <style>
+  .header{
+    width:100%;
+    
+    
+  }
+ 
+  .logo{
+    height:200px; 
+    width:400px;
+
+  }
+  .registration{
+position: relative;
+top:500px;
+left:800px;
+
+
+  }
+  .registration input[type=text]{
+    display: block;
+    width: 500px;
+  }
+  .registration input[type=submit]{
+    position: relative;
+    left:200px;
+  }
+
+  .registration label{
+    display: inline;
+    color:white;
+    font-size: 25px;
+  }
+  .footer{
+    position: relative;
+    top:700px;
+    left:800px;
+    color:white;
+  }
+  #map {
+        height: 100%;
+      }
+
+  
+  </style>
+  <script>
+  
+
+     function isNumber(phone){
+       var pattern = /^[0-9]*$/
+   
+       if(phone.match(pattern))
+       {
+     
+         return true;
+         
+       }
+       else{
+         alert("Enter Valid Phone Number");
+         return false;
+       }
+
+
+     }
+     function checkValidation(){
+      
+     var phone = document.getElementById("phone").value;
+  
+    isNumber(phone)
+
+     }
+  </script>
+
+
+<script>
+  function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmQmcmwZvqF6ggGPJ_cqDSNMrK3EgfGSc&callback=initMap">
+</script>
+
+<body background="eda-wallpaper.png"> 
+<table>
+    
+<tr>
+  
+    <td>
+        <div class="header">
+      
+        </div>
+        
+      
+    </td> 
+ 
+</tr>
+  <tr>
+    <td> 
+      <div class="registration">
+      <form onSubmit="return checkValidation()">
+       <label>Name:</label>  <input type="text" id="name" placeholder="Name"> 
+       <label> Address: </label> <input type="text" id="address" placeholder="Address"> 
+        <label>Phone:</label> <input type="text" id="phone" placeholder="Phone"> 
+        <input type="submit">
+    
+    </form> 
+  </div>
+  
+  </td>
+   </tr>
+   <tr>
+      <td> 
+          <div id="map"></div> 
+        <div class="footer">  @CopyRight DevAcademy 2017</div> </td>
+     </tr>
+
+
+</table>
+
+
+
+</body>
+</head>
+</html>

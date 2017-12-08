@@ -1,0 +1,46 @@
+<docType.html>
+<html>
+  <head>
+ <title>Sleep Programing</title>
+<style>
+  .NightView {
+    background-color: black;  
+    color:yellowgreen;
+  }
+  .DayView {
+    background-color: white;
+    color: black;
+  }
+ body {
+   display: flex;
+  justify-content: center  
+  }
+</style> 
+</head>
+
+<body class="DayView">
+  <div>
+    <h1> Night Vision </h1>
+    <button id="ToggleVision">Toggle Night Vision</button>
+    <p> Click this button for night vision </p>
+    <button id="UnderWater">Under water vision</button>
+    <p> Click this button for underwater vision </p>
+    <p>This page was designed with optimum visibility in mind,<br> click on the button to optimize visibility!!!</p>
+  </div>
+ <script>
+  var NightModeOn=true
+  var VisionStatus= document.getElementById('ToggleVision')
+  VisionStatus.addEventListener('click', ToggleNightVison)
+
+  function ToggleNightVison() {
+    if (NightModeOn){
+      VisionStatus.classList.remove()
+    }
+  } 
+
+</script>
+
+
+
+</body>
+</html>

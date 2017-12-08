@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<title>New Zealand Surf Point</title>
+</head>
+<body>
+  
+background-colour: 
+
+<h1>Canvas</h1>
+<p>JS drawing</p>
+
+<p>
+<canvas id="myCanvas" width="600" height="300" style="border:5px solid	#556B2F;"></canvas>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var img = new Image();
+      img.src = "surf.jpg";
+      img.onload = paintImage;
+    });
+
+    function paintImage () {
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      ctx.drawImage(this,50,0,c.width/1.33, c.height/1.25);
+    }
+
+  </script>
+</body>
+</html>
